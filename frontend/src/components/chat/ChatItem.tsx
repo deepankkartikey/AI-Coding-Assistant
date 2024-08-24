@@ -26,16 +26,12 @@ function isCodeBlock(str: string) {
   }
   return false;
 }
-const ChatItem = ({
-  content,
-  role,
-}: {
-  content: string;
+const ChatItem = ({ content, role }: { content: string;
   role: "user" | "assistant";
 }) => {
   const messageBlocks = extractCodeFromString(content);
   const auth = useAuth();
-  return role == "assistant" ? (
+  return role === "assistant" ? (
     <Box
       sx={{
         display: "flex",
@@ -78,7 +74,7 @@ const ChatItem = ({
     >
       <Avatar sx={{ ml: "0", bgcolor: "black", color: "white" }}>
         {auth?.user?.name[0]}
-        {auth?.user?.name.split(" ")[1][0]}
+        {/* {auth?.user?.name.split(" ")[1][0]} */}
       </Avatar>
       <Box>
         {!messageBlocks && (
