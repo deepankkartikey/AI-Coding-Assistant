@@ -16,30 +16,32 @@ type Message = {
   content: string;
 };
 
-const initialMessages: {role: "user" | "assistant", content: string}[] = [
-  { role: "assistant", content: "You are a helpful assistant." },
-  {
-      role: "user",
-      content: "Write a haiku about recursion in programming.",
-  },
-]
+// const initialMessages: {role: "user" | "assistant", content: string}[] = [
+//   { role: "assistant", content: "You are a helpful assistant." },
+//   {
+//       role: "user",
+//       content: "Write a haiku about recursion in programming.",
+//   },
+// ]
 
 const Chat = () => {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const auth = useAuth();
-  const [chatMessages, setChatMessages] = useState<Message[]>(initialMessages);
-  // const handleSubmit = async () => {
-  //   const content = inputRef.current?.value as string;
-  //   if (inputRef && inputRef.current) {
-  //     inputRef.current.value = "";
-  //   }
-  //   const newMessage: Message = { role: "user", content };
-  //   setChatMessages((prev) => [...prev, newMessage]);
-  //   const chatData = await sendChatRequest(content);
-  //   setChatMessages([...chatData.chats]);
-  //   //
-  // };
+  const [chatMessages, setChatMessages] = useState<Message[]>([]);
+  const handleSubmit = async () => {
+    const content = inputRef.current?.value as string;
+    if (inputRef && inputRef.current) {
+      inputRef.current.value = "";
+    }
+    const newMessage: Message = { role: "user", content };
+    setChatMessages((prev) => [...prev, newMessage]);
+
+    // send api request to send chat messages to backend/api
+    const chatData = await sendChatRequest(content);
+    setChatMessages([...chatData.chats]);
+    
+  };
   // const handleDeleteChats = async () => {
   //   try {
   //     toast.loading("Deleting Chats", { id: "deletechats" });
@@ -203,7 +205,7 @@ const Chat = () => {
             }}
           />
           <IconButton 
-            // onClick={handleSubmit} 
+            onClick={handleSubmit} 
           sx={{ color: "white", mx: 1 }}>
             <IoMdSend />
           </IconButton>
