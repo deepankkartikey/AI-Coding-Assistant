@@ -20,7 +20,7 @@ function App() {
         {auth?.isLoggedIn && auth.user && (
           <Route path="/chat" element={<Chat />} />
         )}
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<Login />} />
       </Routes>
     </main>
   );

@@ -42,31 +42,31 @@ const Chat = () => {
     setChatMessages([...chatData.chats]);
     
   };
-  // const handleDeleteChats = async () => {
-  //   try {
-  //     toast.loading("Deleting Chats", { id: "deletechats" });
-  //     await deleteUserChats();
-  //     setChatMessages([]);
-  //     toast.success("Deleted Chats Successfully", { id: "deletechats" });
-  //   } catch (error) {
-  //     console.log(error);
-  //     toast.error("Deleting chats failed", { id: "deletechats" });
-  //   }
-  // };
-  // useLayoutEffect(() => {
-  //   if (auth?.isLoggedIn && auth.user) {
-  //     toast.loading("Loading Chats", { id: "loadchats" });
-  //     getUserChats()
-  //       .then((data) => {
-  //         setChatMessages([...data.chats]);
-  //         toast.success("Successfully loaded chats", { id: "loadchats" });
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //         toast.error("Loading Failed", { id: "loadchats" });
-  //       });
-  //   }
-  // }, [auth]);
+  const handleDeleteChats = async () => {
+    try {
+      toast.loading("Deleting Chats", { id: "deletechats" });
+      await deleteUserChats();
+      setChatMessages([]);
+      toast.success("Deleted Chats Successfully", { id: "deletechats" });
+    } catch (error) {
+      console.log(error);
+      toast.error("Deleting chats failed", { id: "deletechats" });
+    }
+  };
+  useLayoutEffect(() => {
+    if (auth?.isLoggedIn && auth.user) {
+      toast.loading("Loading Chats", { id: "loadchats" });
+      getUserChats()
+        .then((data) => {
+          setChatMessages([...data.chats]);
+          toast.success("Successfully loaded chats", { id: "loadchats" });
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Loading Failed", { id: "loadchats" });
+        });
+    }
+  }, [auth]);
   useEffect(() => {
     if (!auth?.user) {
       return navigate("/login");
@@ -123,7 +123,7 @@ const Chat = () => {
             Education, etc. But avoid sharing personal information
           </Typography>
           <Button
-            // onClick={handleDeleteChats}
+            onClick={handleDeleteChats}
             sx={{
               width: "200px",
               my: "auto",
