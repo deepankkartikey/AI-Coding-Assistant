@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import User from "../models/User.js";
-import { configureOpenAI } from "../config/openai-config.js";
-import { OpenAIApi, ChatCompletionRequestMessage } from "openai";
+import OpenAI from "openai";
+import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
+
 
 export const generateChatCompletion = async (
   req: Request,
@@ -19,20 +20,19 @@ export const generateChatCompletion = async (
     const chats = user.chats.map(({ role, content }) => ({
       role,
       content,
-    })) as ChatCompletionRequestMessage[];
+    })) as ChatCompletionMessageParam[];
     chats.push({ content: message, role: "user" });
     user.chats.push({ content: message, role: "user" });
 
-    // 2. send all chats with new one to openAI API
-    const config = configureOpenAI();
-    const openai = new OpenAIApi(config);
-    
-    // 3. get latest response
-    const chatResponse = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo", // this can be configured in environment files
+    // 2. establish connection to openAI API
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+
+    // 3. send chat to openAI to get latest response
+    const chatResponse = await openai.chat.completions.create({
+      model: "gpt-4o-mini", // this can be configured in environment files
       messages: chats,
     });
-    user.chats.push(chatResponse.data.choices[0].message);
+    user.chats.push(chatResponse.choices[0].message);
     await user.save();
     return res.status(200).json({ chats: user.chats });
   } catch (error) {
