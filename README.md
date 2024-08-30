@@ -60,6 +60,7 @@ A full-featured chat assistant built from scratch using the MERN stack, OpenAI A
 3. Create a `.env` file in the `backend` directory and add the following environment variables:
     ```env
     PORT=<PORT Number to run Backend>
+    FRONTEND_PORT=<PORT on Which Frontend React-app is running>
     MONGO_URI=<Your MongoDB URI>
     JWT_SECRET=<Your JWT Secret>
     OPENAI_API_KEY=<Your OpenAI API Key>
