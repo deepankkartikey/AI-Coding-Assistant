@@ -65,6 +65,7 @@ A full-featured chat assistant built from scratch using the MERN stack, OpenAI A
     JWT_SECRET=<Your JWT Secret>
     OPENAI_API_KEY=<Your OpenAI API Key>
     COOKIE_SECRET=<Your Cookie Secret>
+    MODEL_NAME=<GPT model you want to use> like gpt-3.5-turbo, gpt-4o-mini, gpt-4o etc.
     ```
 4. Start the development server:
     ```bash

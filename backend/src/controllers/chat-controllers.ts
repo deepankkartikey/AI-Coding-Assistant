@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import User from "../models/User.js";
 import OpenAI from "openai";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
-import { MODEL_NAME } from "../utils/constants.js";
 import { ERROR_MESSAGE_500, USER_NOT_REGISTERED, PERMISSIONS_MISMATCH, ERROR, OK  } from "../utils/constants.js";
 
 export const generateChatCompletion = async (
@@ -30,7 +29,7 @@ export const generateChatCompletion = async (
 
     // 3. send chat to openAI to get latest response
     const chatResponse = await openai.chat.completions.create({
-      model: MODEL_NAME,
+      model: process.env.MODEL_NAME,
       messages: chats,
     });
     user.chats.push(chatResponse.choices[0].message);

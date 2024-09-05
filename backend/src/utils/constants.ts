@@ -1,5 +1,4 @@
 export const COOKIE_NAME = "auth_token";
-export const MODEL_NAME = "gpt-4o-mini";
 
 // error messages
 export const OK = "OK";
