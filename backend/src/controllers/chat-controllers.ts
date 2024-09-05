@@ -2,7 +2,8 @@ import { NextFunction, Request, Response } from "express";
 import User from "../models/User.js";
 import OpenAI from "openai";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
-
+import { MODEL_NAME } from "../utils/constants.js";
+import { ERROR_MESSAGE_500, USER_NOT_REGISTERED, PERMISSIONS_MISMATCH, ERROR, OK  } from "../utils/constants.js";
 
 export const generateChatCompletion = async (
   req: Request,
@@ -15,7 +16,7 @@ export const generateChatCompletion = async (
     if (!user)
       return res
         .status(401)
-        .json({ message: "User not registered OR Token malfunctioned" });
+        .json({ message: USER_NOT_REGISTERED });
     // 1. grab chats of user
     const chats = user.chats.map(({ role, content }) => ({
       role,
@@ -29,7 +30,7 @@ export const generateChatCompletion = async (
 
     // 3. send chat to openAI to get latest response
     const chatResponse = await openai.chat.completions.create({
-      model: "gpt-4o-mini", // this can be configured in environment files
+      model: MODEL_NAME,
       messages: chats,
     });
     user.chats.push(chatResponse.choices[0].message);
@@ -37,7 +38,7 @@ export const generateChatCompletion = async (
     return res.status(200).json({ chats: user.chats });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Something went wrong" });
+    return res.status(500).json({ message: ERROR_MESSAGE_500 });
   }
 };
 
@@ -50,15 +51,15 @@ export const sendChatsToUser = async (
     //user token check
     const user = await User.findById(res.locals.jwtData.id);
     if (!user) {
-      return res.status(401).send("User not registered OR Token malfunctioned");
+      return res.status(401).send(USER_NOT_REGISTERED);
     }
     if (user._id.toString() !== res.locals.jwtData.id) {
-      return res.status(401).send("Permissions didn't match");
+      return res.status(401).send(PERMISSIONS_MISMATCH);
     }
-    return res.status(200).json({ message: "OK", chats: user.chats });
+    return res.status(200).json({ message: OK, chats: user.chats });
   } catch (error) {
     console.log(error);
-    return res.status(200).json({ message: "ERROR", cause: error.message });
+    return res.status(200).json({ message: ERROR, cause: error.message });
   }
 };
 
@@ -71,17 +72,17 @@ export const deleteChats = async (
     //user token check
     const user = await User.findById(res.locals.jwtData.id);
     if (!user) {
-      return res.status(401).send("User not registered OR Token malfunctioned");
+      return res.status(401).send(USER_NOT_REGISTERED);
     }
     if (user._id.toString() !== res.locals.jwtData.id) {
-      return res.status(401).send("Permissions didn't match");
+      return res.status(401).send(PERMISSIONS_MISMATCH);
     }
     //@ts-ignore
     user.chats = [];
     await user.save();
-    return res.status(200).json({ message: "OK" });
+    return res.status(200).json({ message: OK });
   } catch (error) {
     console.log(error);
-    return res.status(200).json({ message: "ERROR", cause: error.message });
+    return res.status(200).json({ message: ERROR, cause: error.message });
   }
 };

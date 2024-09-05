@@ -1,10 +1,11 @@
 import { connect, disconnect } from "mongoose";
+import { MONGO_NO_CONNECT, MONGO_NO_DISCONNECT } from "../utils/constants.js";
 async function connectToDatabase() {
   try {
     await connect(process.env.MONGODB_URL);
   } catch (error) {
     console.log(error);
-    throw new Error("Could not Connect To MongoDB");
+    throw new Error(MONGO_NO_CONNECT);
   }
 }
 
@@ -13,7 +14,7 @@ async function disconnectFromDatabase() {
     await disconnect();
   } catch (error) {
     console.log(error);
-    throw new Error("Could not Disconnect From MongoDB");
+    throw new Error(MONGO_NO_DISCONNECT);
   }
 }
 
