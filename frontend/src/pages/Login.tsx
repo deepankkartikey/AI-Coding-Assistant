@@ -5,6 +5,7 @@ import CustomizedInput from "../components/shared/CustomizedInput";
 import { toast } from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { LOGIN_ERROR } from "../utils/constants";
 const Login = () => {
   const navigate = useNavigate();
   const auth = useAuth();
@@ -19,7 +20,7 @@ const Login = () => {
       toast.success("Signed In Successfully", { id: "login" });
     } catch (error) {
       console.log(error);
-      toast.error("Signing In Failed", { id: "login" });
+      toast.error(LOGIN_ERROR, { id: "login" });
     }
   };
   useEffect(() => {

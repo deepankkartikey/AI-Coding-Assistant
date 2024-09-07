@@ -11,6 +11,7 @@ import {
   sendChatRequest,
 } from "../helpers/api-communicator";
 import toast from "react-hot-toast";
+import { DELETE_CHATS_ERROR, GET_CHATS_ERROR } from "../utils/constants";
 type Message = {
   role: "user" | "assistant";
   content: string;
@@ -50,7 +51,7 @@ const Chat = () => {
       toast.success("Deleted Chats Successfully", { id: "deletechats" });
     } catch (error) {
       console.log(error);
-      toast.error("Deleting chats failed", { id: "deletechats" });
+      toast.error(DELETE_CHATS_ERROR, { id: "deletechats" });
     }
   };
   useLayoutEffect(() => {
@@ -63,7 +64,7 @@ const Chat = () => {
         })
         .catch((err) => {
           console.log(err);
-          toast.error("Loading Failed", { id: "loadchats" });
+          toast.error(GET_CHATS_ERROR, { id: "loadchats" });
         });
     }
   }, [auth]);
