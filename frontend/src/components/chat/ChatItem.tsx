@@ -19,9 +19,12 @@ function isCodeBlock(str: string) {
     str.includes("]") ||
     str.includes("{") ||
     str.includes("}") ||
+    str.includes("(") ||
+    str.includes(")") ||
     str.includes("#") ||
     str.includes("//")
   ) {
+    console.log("Code Block: ", str)
     return true;
   }
   return false;
@@ -53,7 +56,7 @@ const ChatItem = ({ content, role }: { content: string;
           messageBlocks.length &&
           messageBlocks.map((block, index) =>
             isCodeBlock(block) ? (
-              <SyntaxHighlighter style={coldarkDark} language="javascript" key={index}>
+              <SyntaxHighlighter style={coldarkDark} language={block.split("\n")[0]} key={index}>
                 {block}
               </SyntaxHighlighter>
             ) : (
@@ -83,8 +86,8 @@ const ChatItem = ({ content, role }: { content: string;
         {messageBlocks &&
           messageBlocks.length &&
           messageBlocks.map((block) =>
-            isCodeBlock(block) ? (
-              <SyntaxHighlighter style={coldarkDark} language="javascript">
+            isCodeBlock(block) ? ( 
+              <SyntaxHighlighter style={coldarkDark} language={block.split("\n")[0]}>
                 {block}
               </SyntaxHighlighter>
             ) : (
