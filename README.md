@@ -1,5 +1,7 @@
 # MERN-gpt : A Coding Assistant
 
+### Checkout the Demo of Project at [Demo-Link](./Coding-Assistant_Demo.mp4)
+  
 A full-featured chat assistant built from scratch using the MERN stack, OpenAI API, Material UI, and TypeScript. The application provides a seamless and engaging user experience with features like SignUp, LogIn, View Previous Chats, Chatting Assistance, and the ability to delete conversations.
 
 ## Features
@@ -74,9 +76,6 @@ A full-featured chat assistant built from scratch using the MERN stack, OpenAI A
     cd ../frontend
     npm run dev
     ```
-
-## Demos
-  Checkout the Demo of Project here. [Demo-Link](./Coding-Assistant_Demo.mp4)
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
