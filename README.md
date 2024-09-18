@@ -76,7 +76,7 @@ A full-featured chat assistant built from scratch using the MERN stack, OpenAI A
     ```
 
 ## Demos
-  Checkout the Demo of Project here. [Demo-Link](./Coding-Assistant_Demo.mp4)
+  Checkout the Demo of Project here. [Demo-Link](https://drive.google.com/file/d/1CuwtdbWwHJoJVpNItjElf6rdeQIx9K9F/view?usp=sharing)
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
