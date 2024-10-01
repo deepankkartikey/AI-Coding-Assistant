@@ -155,7 +155,7 @@ const Chat = () => {
             fontSize: "40px",
             color: "white",
             mb: 2,
-            mx: "auto",
+            mx: "15%",
             fontWeight: "600",
           }}
         >
@@ -164,12 +164,12 @@ const Chat = () => {
         {/* chatbox rendered with chats */}
         <Box
           sx={{
-            width: "100%",
+            width: "50%",
             height: "60vh",
             borderRadius: 3,
-            mx: "auto",
-            display: "flex",
-            flexDirection: "column",
+            // mx: "auto",
+            // display: "flex",
+            // flexDirection: "column",
             overflow: "scroll",
             overflowX: "hidden",
             overflowY: "auto",
@@ -184,11 +184,11 @@ const Chat = () => {
         </Box>
         <div
           style={{
-            width: "100%",
+            width: "50%",
             borderRadius: 8,
             backgroundColor: "rgb(17,27,39)",
             display: "flex",
-            margin: "auto",
+            // margin: "auto",
           }}
         >
           {" "}
